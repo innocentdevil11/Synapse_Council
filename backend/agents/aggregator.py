@@ -55,6 +55,7 @@ Output Constraints:
 - 3–5 sentences
 - Clear recommended action
 - At most one key reason and one key caveat
+- Keep the output towards a solution of the dilemma
 
 You are NOT allowed to:
 - Mention agents, weights, or scores explicitly

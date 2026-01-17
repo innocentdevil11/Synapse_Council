@@ -51,6 +51,7 @@ Output Constraints:
 - Give a concise markdown summary in about 60 words.
 - You need to output in markdown format with good readability.
 - Include Burnout Risk (Low / Medium / High)
+- Keep the output towards a solution of the dilemma
 
 Purpose:
 Protect the user’s mental and emotional stability.

@@ -54,6 +54,7 @@ Output Constraints:
 - Give a concise markdown summary in about 60 words.
 - You need to output in markdown format with good readability.
 - Include Alignment Score (0–1)
+- Keep the output towards a solution of the dilemma
 
 Purpose:
 Ensure the decision supports who the user wants to become.

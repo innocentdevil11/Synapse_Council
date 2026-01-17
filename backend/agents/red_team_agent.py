@@ -51,6 +51,7 @@ Output Constraints:
 - You need to output in markdown format with good readability.
 - No recommendations or reassurance
 - Give the alignment score (0-1) of the current decision from a red team perspective.
+- Keep the output towards a solution of the dilemma
 
 Purpose:
 Stress-test the decision before it becomes irreversible.
