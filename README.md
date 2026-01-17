@@ -1,384 +1,313 @@
-# Synapse Council
+# 🧠 Synapse Council
 
-**Multi-Agent Personal Decision Copilot**
+A futuristic multi-agent AI decision system powered by LangGraph, FastAPI, and Next.js.
 
-Replace binary AI answers with structured multi-agent debate. Submit a serious dilemma (career, investment, life decision), and four specialized agents analyze it from different lenses, debate each other, and synthesize a transparent, explainable recommendation.
+**"A private board of AI directors helping you think clearly."**
 
----
+## 🎯 Overview
 
-## Features
+Synapse Council provides AI-powered decision making through five specialized agents:
 
-✨ **Four Specialized Agents**
-- **Risk & Logic**: Probabilistic outcomes, downside risk, failure modes, financial impact
-- **EQ Advocate**: Emotional/psychological impact, burnout, relationships, identity, wellbeing
-- **Values Guard**: Ethics, stakeholder impact, integrity, long-term values, second-order effects
-- **Red Team**: Expose blind spots, challenge consensus, wild-card scenarios, overconfidence
+- **Ethical Agent**: Moral & philosophical perspective
+- **Risk & Logic Agent**: Analytical risk assessment  
+- **EQ Agent**: Emotional intelligence lens
+- **Value Alignment Agent**: Personal values harmony
+- **Red Team Agent**: Devil's advocate perspective
 
-✨ **Structured Multi-Agent Debate**
-- All agents analyze in parallel (Round 0)
-- LLM-powered semantic conflict scoring
-- Adaptive debate rounds (1-2 rounds if agents disagree above threshold)
-- Full audit trail of all rounds
-
-✨ **Transparent Results**
-- Final weighted recommendation (PROCEED / CAUTION / BLOCK)
-- Confidence score based on agent agreement
-- **Conflict Heatmap**: Visual 4x4 matrix showing agent agreement/disagreement
-- Individual agent cards with full reasoning
-- Customizable weights for each agent
-
-✨ **Modern Web UI**
-- React + TypeScript frontend
-- Real-time loading states
-- Interactive Plotly heatmap
-- Responsive design (desktop & mobile)
-- Dark mode theme
+All perspectives are synthesized by an **Aggregator Agent** into a final council resolution.
 
 ---
 
-## Tech Stack
+## 🏗️ Architecture
 
-**Backend**
-- Python 3.10+ / FastAPI (async)
-- Google Gemini API (free tier: gemini-2.0-flash)
-- Pydantic for type safety
-- Uvicorn ASGI server
-
-**Frontend**
-- React 18 + TypeScript
-- Plotly for conflict heatmap visualization
-- CSS Grid for responsive layouts
-- Fetch API for HTTP requests
-
-**Deployment**
-- Backend: Docker-ready (Render, Railway, Heroku)
-- Frontend: Static build (Vercel, Netlify)
-- Stateless MVP (no database)
-
----
-
-## Quick Start
-
-### For Windows Users
-
-⚠️ **See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for detailed Windows-specific instructions.**
-
-### For macOS/Linux Users
-
-#### 1. Backend Setup
-
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # or: venv\Scripts\activate on Windows
-
-pip install -r requirements.txt
-
-# Create .env file
-cp .env.example .env
-# Edit .env and add your GEMINI_API_KEY
-
-# Start backend
-uvicorn app.main:app --reload
+```
+┌─────────────┐         ┌──────────────┐         ┌─────────────────┐
+│   Next.js   │ ──────► │   FastAPI    │ ──────► │   LangGraph     │
+│   Frontend  │  HTTP   │   Backend    │ invoke  │  Multi-Agent    │
+│             │ ◄────── │              │ ◄────── │   System        │
+└─────────────┘         └──────────────┘         └─────────────────┘
 ```
 
-Backend runs on `http://localhost:8000`
-
-#### 2. Frontend Setup
-
-Open a **new terminal**:
-
-```bash
-cd frontend
-npm install
-npm start
-```
-
-Frontend runs on `http://localhost:3000`
+- **Frontend**: Next.js 14 (App Router), React, Tailwind CSS, Framer Motion
+- **Backend**: FastAPI with Pydantic validation and CORS
+- **Agents**: LangGraph orchestrating 5 agents + aggregator (unchanged)
 
 ---
 
-## Configuration
+## 📁 Project Structure
 
-### Backend (.env)
-
-```env
-GEMINI_API_KEY=your-api-key-here
-GEMINI_MODEL=gemini-2.0-flash
-FRONTEND_URL=http://localhost:3000
-CONFLICT_THRESHOLD=0.2
-MAX_DEBATE_ROUNDS=2
-LLM_TEMPERATURE=0.7
-LLM_MAX_TOKENS=1500
 ```
-
-**Get your free Gemini API key**: https://aistudio.google.com/app/apikey
-
-### Frontend (.env)
-
-```env
-REACT_APP_API_URL=http://localhost:8000
+Synapse Council Reloaded 2.0/
+├── backend/
+│   ├── agents/              # Agent implementations (DO NOT MODIFY)
+│   ├── graph/               # LangGraph flow (DO NOT MODIFY)
+│   ├── api.py              # FastAPI integration layer
+│   ├── main.py             # Original CLI runner
+│   └── requirements.txt    # Python dependencies
+│
+└── frontend/
+    ├── app/
+    │   ├── page.jsx        # Main application page
+    │   ├── layout.jsx      # Root layout
+    │   └── globals.css     # Global styles
+    ├── components/
+    │   ├── WeightSlider.jsx    # Agent weight control
+    │   ├── AgentCard.jsx       # Agent output display
+    │   └── LoadingSpinner.jsx  # Loading animation
+    ├── package.json
+    ├── tailwind.config.js
+    └── next.config.js
 ```
 
 ---
 
-## API Endpoints
+## 🚀 Setup Instructions
 
-### Health Check
+### Prerequisites
 
-```bash
-GET /health
-```
+- **Python 3.9+** with pip
+- **Node.js 18+** with npm
+- Environment variables for LLM API keys (if used by agents)
 
-Response:
+### Backend Setup
+
+1. **Navigate to backend directory**:
+   ```bash
+   cd backend
+   ```
+
+2. **Create virtual environment** (recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   
+   Note: You may need to install additional dependencies for LangGraph and the agents. Check the agent files for specific requirements.
+
+4. **Run the FastAPI server**:
+   ```bash
+   python api.py
+   ```
+   
+   Server will start at: `http://localhost:8000`
+   
+   API docs available at: `http://localhost:8000/docs`
+
+### Frontend Setup
+
+1. **Navigate to frontend directory**:
+   ```bash
+   cd frontend
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+   
+   Frontend will start at: `http://localhost:3000`
+
+---
+
+## 🎮 Usage
+
+1. **Start both servers** (backend on :8000, frontend on :3000)
+
+2. **Open** `http://localhost:3000` in your browser
+
+3. **Enter your decision query** in the large text area
+   - Example: "Should I leave my current job to start a startup?"
+
+4. **Adjust agent weights** using the sliders (0.0 to 1.0)
+   - Default: All agents weighted equally at 0.2
+
+5. **Click "Run Synapse Council"** to execute
+
+6. **View results**:
+   - **Council Resolution**: Final aggregated decision (prominent panel)
+   - **Individual Perspectives**: Each agent's analysis (cards below)
+
+---
+
+## 🎨 Design Features
+
+### Visual Style
+- **Dark mode only** with neon accents (cyan, violet, emerald)
+- **Glassmorphism** effects on all panels
+- **Animated gradient background**
+- **Neon glows** on interactive elements
+
+### Animations (Framer Motion)
+- Staggered card entrance animations
+- Smooth loading spinner with pulsing effects
+- Hover interactions on buttons and sliders
+- Scale animations on value changes
+
+### Responsive Design
+- Mobile-first approach
+- Grid layouts adapt to screen size
+- Touch-friendly controls
+
+---
+
+## 🔌 API Reference
+
+### `POST /decision`
+
+Execute the Synapse Council decision process.
+
+**Request Body**:
 ```json
 {
-  "status": "healthy",
-  "service": "Synapse Council"
-}
-```
-
-### Submit Decision
-
-```bash
-POST /api/decide
-Content-Type: application/json
-
-{
-  "dilemma": "Should I leave my stable job to start a startup?",
-  "context": "I have 6 months of savings and a growing family.",
+  "query": "Your decision question here",
   "weights": {
-    "risk": 0.4,
+    "ethical": 0.2,
+    "risk": 0.2,
     "eq": 0.2,
-    "values": 0.3,
-    "red_team": 0.1
+    "values": 0.2,
+    "red_team": 0.2
   }
 }
 ```
 
-Response:
+**Response**:
 ```json
 {
-  "recommendation": "CAUTION (Mixed signals)",
-  "confidence_score": 0.78,
-  "conflict_heatmap": {
-    "risk_eq": 0.3,
-    "risk_values": 0.1,
-    "risk_red_team": 0.6,
-    "eq_values": 0.8,
-    "eq_red_team": 0.7,
-    "values_red_team": 0.5
+  "agent_outputs": {
+    "ethical": "Ethical agent's perspective...",
+    "risk": "Risk agent's analysis...",
+    "eq": "EQ agent's insights...",
+    "values": "Values agent's view...",
+    "red_team": "Red team's critique..."
   },
-  "agent_responses": {
-    "risk": { "recommendation": "CAUTION", "confidence_score": 0.85, "reasoning": "...", ... },
-    "eq": { "recommendation": "PROCEED", "confidence_score": 0.72, "reasoning": "...", ... },
-    "values": { "recommendation": "CAUTION", "confidence_score": 0.80, "reasoning": "...", ... },
-    "red_team": { "recommendation": "BLOCK", "confidence_score": 0.65, "reasoning": "...", ... }
-  },
-  "debate_rounds": 2,
-  "audit_trail": [
-    { "round": 0, "responses": {...}, "conflict_matrix": {...} },
-    { "round": 1, "responses": {...}, "conflict_matrix": {...} }
-  ],
-  "execution_time_ms": 45230
+  "final_decision": "Aggregated council resolution..."
 }
 ```
 
----
-
-## Project Structure
-
-```
-synapse-council/
-├── backend/
-│   ├── app/
-│   │   ├── main.py                      # FastAPI app
-│   │   ├── config.py                    # Settings
-│   │   ├── schemas.py                   # Pydantic models
-│   │   ├── llm_client.py                # Gemini wrapper
-│   │   ├── orchestrator.py              # Multi-agent orchestrator
-│   │   └── agents/
-│   │       ├── base.py                  # Abstract agent class
-│   │       ├── risk_logic.py            # Risk & Logic agent
-│   │       ├── eq_advocate.py           # EQ Advocate agent
-│   │       ├── values_guard.py          # Values Guard agent
-│   │       └── red_team.py              # Red Team agent
-│   ├── requirements.txt
-│   ├── .env.example
-│   └── Dockerfile
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── DecisionInput.tsx        # Form + sliders
-│   │   │   ├── ResultsPanel.tsx         # Results layout
-│   │   │   ├── ConflictHeatmap.tsx      # Plotly heatmap
-│   │   │   ├── AgentCard.tsx            # Agent card
-│   │   │   └── LoadingSpinner.tsx       # Loading state
-│   │   ├── styles/
-│   │   │   ├── *.css                    # Component styles
-│   │   ├── App.tsx                      # Main app
-│   │   ├── index.tsx                    # Entry point
-│   │   ├── types.ts                     # TS interfaces
-│   │   ├── api.ts                       # HTTP client
-│   │   └── index.css                    # Global styles
-│   ├── public/
-│   │   └── index.html
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── WINDOWS_SETUP.md                      # Windows-specific guide
-└── README.md                             # This file
-```
+**Other Endpoints**:
+- `GET /` - API info
+- `GET /health` - Health check
 
 ---
 
-## How It Works
+## 🛠️ Development
 
-### 1. User Submits Dilemma
-User enters a decision and optional context, adjusts agent weights (importance).
+### Backend Development
 
-### 2. Round 0: Initial Analysis
-All four agents analyze in **parallel**:
-- Risk & Logic agent generates its recommendation
-- EQ Advocate generates its recommendation
-- Values Guard generates its recommendation
-- Red Team generates its recommendation
+The backend is a **thin integration layer**. The agent logic and LangGraph flow are in separate files and should not be modified.
 
-Each returns a JSON object with:
-- `recommendation` (PROCEED / CAUTION / BLOCK)
-- `confidence_score` (0-1)
-- `reasoning` + role-specific fields
-
-### 3. Conflict Scoring
-System uses LLM to compute **semantic disagreement** between all 6 agent pairs:
-- Requests: "Rate agreement between these two positions on 0-1 scale"
-- Converts to conflict score: `1 - similarity`
-
-### 4. Adaptive Debate (Optional)
-If average conflict > threshold (0.2), runs 1-2 debate rounds:
-- Pass previous agent responses to each agent
-- Agents can revise/strengthen position
-- Recompute conflict matrix
-- Stop when: conflict < threshold OR max rounds reached
-
-### 5. Synthesis
-- Maps recommendations to scores: PROCEED=1.0, CAUTION=0.5, BLOCK=0.0
-- Computes weighted sum using user weights
-- Converts to final recommendation text
-- Calculates confidence based on agent agreement
-
-### 6. Response
-Returns:
-- Final recommendation text + confidence
-- Conflict heatmap (6 pairwise conflicts)
-- Full agent responses
-- Number of debate rounds
-- Audit trail (all rounds)
-
----
-
-## Development
-
-### Backend Tests
-
-```bash
-cd backend
-source venv/bin/activate
-
-# Manual test
-curl -X POST http://localhost:8000/api/decide \
-  -H "Content-Type: application/json" \
-  -d '{
-    "dilemma": "Should I change careers?",
-    "weights": {"risk": 0.4, "eq": 0.3, "values": 0.2, "red_team": 0.1}
-  }'
-```
+To add features:
+- Modify `api.py` only
+- Keep graph execution as a black box
+- Add validation or middleware as needed
 
 ### Frontend Development
 
 ```bash
 cd frontend
-npm start          # Dev server with hot reload
-npm run build      # Production build
-npm test           # Run tests (if configured)
+npm run dev      # Development server
+npm run build    # Production build
+npm run start    # Production server
+npm run lint     # ESLint
 ```
+
+**Key Components**:
+- `page.jsx` - Main app logic and layout
+- `WeightSlider.jsx` - Reusable slider with animations
+- `AgentCard.jsx` - Agent output card with staggered animations
+- `LoadingSpinner.jsx` - Animated loading state
+
+**Styling**:
+- Tailwind utility classes
+- Custom utilities in `globals.css`
+- Framer Motion for animations
 
 ---
 
-## Deployment
+## 🐛 Troubleshooting
 
-### Backend (Docker)
+### Backend Issues
 
+**Port already in use**:
 ```bash
-cd backend
-docker build -t synapse-council .
-docker run -p 8000:8000 \
-  -e GEMINI_API_KEY=sk-xxxxx \
-  synapse-council
+# Change port in api.py, line 140:
+uvicorn.run(app, host="0.0.0.0", port=8001)
 ```
 
-Deploy to Render, Railway, or Heroku.
+**CORS errors**:
+- Check that frontend URL is in `allow_origins` (api.py, line 33)
+- Default: `http://localhost:3000`
 
-### Frontend (Static)
+**Graph initialization fails**:
+- Ensure all agent dependencies are installed
+- Check LLM API keys are set in environment
+
+### Frontend Issues
+
+**Module not found errors**:
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**API connection fails**:
+- Verify backend is running on port 8000
+- Check `API_URL` in `app/page.jsx` (line 9)
+
+**Build errors**:
+- Ensure Node.js version is 18 or higher
+- Clear Next.js cache: `rm -rf .next`
+
+---
+
+## 📦 Production Deployment
+
+### Backend
+
+1. Set environment variables for production
+2. Use a production ASGI server (uvicorn with workers)
+3. Configure proper CORS origins
+4. Add authentication if needed
 
 ```bash
-cd frontend
+uvicorn api:app --host 0.0.0.0 --port 8000 --workers 4
+```
+
+### Frontend
+
+```bash
 npm run build
-# Deploy 'build/' folder to Vercel, Netlify, or any static host
+npm run start
 ```
 
----
-
-## Limitations & Future Work
-
-### Current MVP (36-hour build)
-- ✅ No user authentication
-- ✅ Stateless (no database)
-- ✅ Single model (Gemini)
-- ✅ REST API only (no streaming)
-- ✅ English only
-
-### Future Enhancements
-- [ ] User accounts & decision history
-- [ ] Streaming LLM responses
-- [ ] Multi-language support
-- [ ] WebSocket real-time updates
-- [ ] Advanced analytics dashboard
-- [ ] Model fine-tuning
-- [ ] Export decisions to PDF
+Or deploy to Vercel/Netlify (configure API_URL as environment variable).
 
 ---
 
-## Contributing
+## 📄 License
 
-This is an MVP. Contributions welcome! Areas for improvement:
-- Better prompts for agents
-- Additional agent personas
-- Conflict scoring algorithm
-- Frontend accessibility
-- Test suite
-- Documentation
+This project integrates existing LangGraph agents with a new FastAPI backend and Next.js frontend.
 
 ---
 
-## License
+## 🙏 Credits
 
-MIT
-
----
-
-## Contact
-
-Built as a 36-hour production MVP for the Synapse Council decision-making system.
-
-Questions? Open an issue or submit a discussion.
+- **LangGraph** for multi-agent orchestration
+- **FastAPI** for the backend API layer
+- **Next.js** for the React framework
+- **Framer Motion** for animations
+- **Tailwind CSS** for styling
 
 ---
 
-## Acknowledgments
-
-- Inspired by multi-agent systems and structured decision-making frameworks
-- Uses Google Gemini for language understanding
-- React & TypeScript for type-safe UI development
-- Plotly for interactive visualizations
+**Built with ⚡ for clarity in decision-making**

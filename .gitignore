@@ -1,19 +1,4 @@
-# Virtual Environments (ignoring your specific folder 'venc')
-**/venc/
-**/venv/
-**/.venv/
-
-# Node Dependencies
-**/node_modules/
-
-# Build and Dist folders (do not upload these)
-**/build/
-**/dist/
-
-# Python Cache
+.env
+venv/
 __pycache__/
 *.pyc
-
-# Secrets
-.env
-.env.example

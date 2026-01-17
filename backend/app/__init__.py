@@ -1,1 +1,0 @@
-"""Synapse Council - Multi-agent decision copilot."""
